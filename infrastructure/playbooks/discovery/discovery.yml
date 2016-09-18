@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Install consul
+      apk: name=consul@testing
+    - name: Copy configuration files
+      copy: src=./root/etc dest=/

@@ -1,0 +1,24 @@
+{
+	"builders": [{
+		"type": "docker",
+		"image": "danh/distro",
+		"commit": true,
+		"pull": false,
+		"run_command": ["-d", "-i", "-t", "{{.Image}}", "/bin/ash"]
+	}],
+	"post-processors": [{
+		"type": "docker-tag",
+		"repository": "danh/discovery"
+	}],
+	"provisioners": [{
+		"type": "ansible-local",
+		"playbook_file": "./infrastructure/playbooks/discovery/discovery.yml",
+		"playbook_dir": "./infrastructure/playbooks/discovery"
+	}, {
+		"type": "shell",
+		"inline": [
+			"apk del ansible",
+			"rm -rf /var/cache/apk/**/*"
+		]
+	}]
+}
