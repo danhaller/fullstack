@@ -2,8 +2,8 @@
 - hosts: all
   tasks:
     - name: Install libexecinfo
-      command: /sbin/apk add libexecinfo@edge --update
+      apk: name=libexecinfo@edge
     - name: Install rethinkdb
-      command: /sbin/apk add rethinkdb@testing
+      apk: name=rethinkdb@testing
     - name: Copy configuration files
       copy: src=./root/etc dest=/

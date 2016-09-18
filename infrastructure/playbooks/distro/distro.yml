@@ -2,8 +2,10 @@
 - hosts: all
   tasks:
     - name: update
-      command: /sbin/apk update
+      apk: upgrade=yes
     - name: Add testing repo
       lineinfile: dest=/etc/apk/repositories line="@testing http://nl.alpinelinux.org/alpine/edge/testing"
     - name: Add edge repo
       lineinfile: dest=/etc/apk/repositories line="@edge http://nl.alpinelinux.org/alpine/edge/main"
+    - name: Update cache
+      apk: update_cache=yes

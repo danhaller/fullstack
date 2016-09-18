@@ -2,7 +2,7 @@
 - hosts: all
   tasks:
     - name: Install node
-      command: /sbin/apk add nodejs
+      apk: name=nodejs
     - name: npm Install
       command: npm install
       args:
