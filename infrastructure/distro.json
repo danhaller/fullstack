@@ -1,0 +1,28 @@
+{
+	"builders": [{
+		"type": "docker",
+		"image": "justcontainers/base-alpine",
+		"commit": true,
+		"run_command": ["-d", "-i", "-t", "{{.Image}}","/bin/ash"]
+	}],
+	"post-processors": [{
+		"type": "docker-tag",
+		"repository": "danh/distro"
+	}],
+	"provisioners": [{
+		"type": "shell",
+		"inline": [
+			"apk update",
+			"apk add ansible"
+		]
+	}, {
+		"type": "ansible-local",
+		"playbook_file": "./infrastructure/playbooks/distro/distro.yml",
+		"playbook_dir": "./infrastructure/playbooks/distro/"
+	}, {
+		"type": "shell",
+		"inline": [
+			"rm -rf /var/cache/apk/**/*"
+		]
+	}]
+}

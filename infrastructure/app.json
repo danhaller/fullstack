@@ -1,0 +1,25 @@
+{
+	"builders": [{
+		"type": "docker",
+		"image": "danh/distro",
+		"commit": true,
+		"pull": false,
+		"volumes": {"{{pwd}}/src": "/var/www/app"},
+		"run_command": ["-d", "-i", "-t", "{{.Image}}","/bin/ash"]
+	}],
+	"post-processors": [{
+		"type": "docker-tag",
+		"repository": "danh/app"
+	}],
+	"provisioners": [{
+		"type": "ansible-local",
+		"playbook_file": "./infrastructure/playbooks/app/app.yml",
+		"playbook_dir": "./infrastructure/playbooks/app/"
+	}, {
+		"type": "shell",
+		"inline": [
+			"apk del ansible",
+			"rm -rf /var/cache/apk/**/*"
+		]
+	}]
+}
