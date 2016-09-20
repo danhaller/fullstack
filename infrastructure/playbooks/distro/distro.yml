@@ -9,3 +9,5 @@
       lineinfile: dest=/etc/apk/repositories line="@edge http://nl.alpinelinux.org/alpine/edge/main"
     - name: Update cache
       apk: update_cache=yes
+    - name: Install dnsmasq
+      apk: name=dnsmasq

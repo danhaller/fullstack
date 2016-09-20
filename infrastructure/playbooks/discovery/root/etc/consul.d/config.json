@@ -1,6 +1,6 @@
 {
 	"data_dir": "/var/consul",
 	"server": true,
-	"bootstrap": true,
-	"ui": true
+	"ui": true,
+	"bootstrap_expect": 1
 }

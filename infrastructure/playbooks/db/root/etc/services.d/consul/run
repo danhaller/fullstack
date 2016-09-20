@@ -1,0 +1,3 @@
+#!/bin/ash
+
+consul agent -data-dir=/var/consul -config-dir=/etc/consul.d -client 0.0.0.0 -retry-join=172.18.0.2

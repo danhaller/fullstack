@@ -16,6 +16,8 @@ services:
       - "28015:28015"
       - "29015:29015"
     tty: true
+    links:
+      - discovery
   discovery:
     image: danh/discovery
     tty: true

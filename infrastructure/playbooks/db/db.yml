@@ -5,5 +5,7 @@
       apk: name=libexecinfo@edge
     - name: Install rethinkdb
       apk: name=rethinkdb@testing
+    - name: Install consul
+      apk: name=consul@testing
     - name: Copy configuration files
       copy: src=./root/etc dest=/
