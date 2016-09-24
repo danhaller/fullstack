@@ -7,5 +7,7 @@
       command: npm install
       args:
         chdir: /var/www/app
+    - name: Install consul
+      apk: name=consul@testing
     - name: Copy configuration files
       copy: src=./root/etc dest=/
