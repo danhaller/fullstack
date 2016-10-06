@@ -1,0 +1,3 @@
+#!/bin/ash
+
+exec s6-setuidgid nomad nomad agent -config /etc/nomad.d/server.hcl

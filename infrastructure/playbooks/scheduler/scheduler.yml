@@ -1,0 +1,25 @@
+---
+- hosts: all
+  tasks:
+    - name: Install glibc
+      shell: apk --allow-untrusted --no-cache -X http://apkproxy.heroku.com/andyshinn/alpine-pkg-glibc add glibc glibc-bin
+    - name: Download nomad
+      get_url:
+        url: https://releases.hashicorp.com/nomad/0.4.1/nomad_0.4.1_linux_amd64.zip
+        checksum: sha256:0cdb5dd95c918c6237dddeafe2e9d2049558fea79ed43eacdfcd247d5b093d67
+        dest: ./
+        validate_certs: no
+    - name: Unzip nomad
+      unarchive: copy=no src=./nomad_0.4.1_linux_amd64.zip dest=/usr/bin
+    - name: Remove zip
+      file: path=./nomad_0.4.1_linux_amd64.zip state=absent
+    - name: Add group
+      shell: addgroup nomad
+    - name: Add user
+      shell: adduser -G nomad -D nomad
+    - name: Change permissions
+      file: path=/usr/bin/nomad mode=u+x group=nomad
+    - name: Make data data dir
+      file: path=/var/nomad group=nomad state=directory recurse=yes mode=g+rwx
+    - name: Copy configuration files
+      copy: src=./root/etc dest=/
